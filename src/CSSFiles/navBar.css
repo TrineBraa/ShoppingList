@@ -1,0 +1,22 @@
+.NavContainer {
+    display: flex;
+    height: 100px;
+    width: 100vw;
+    margin-top: 0px;
+    margin-left: 0px;
+    background-color: rgb(0, 0, 0);
+    justify-content: center;
+}
+
+.NavWelcome{
+    font-size: 3.5em;
+  line-height: 1.1;
+  margin-top: 27px;
+  color: darkgray;
+  padding-right: 200px;
+}
+
+.NavButtonContainer{
+    padding-top: 40px;
+    padding-right: 200px;
+}
