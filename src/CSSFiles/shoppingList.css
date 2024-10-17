@@ -1,0 +1,18 @@
+.ShoppingListComp 
+{
+    margin-top: 20px;
+    margin-left: 200px;
+}
+
+.shoppingTable {
+    width: 800px;
+    height: 30px;
+}
+
+.ShoppingRow {
+    text-align: left;
+}
+
+.ShoppingTitle {
+    text-align: center;
+}

@@ -1,11 +1,14 @@
 import '../CSSFiles/MainContain.css'
-// import ShoppingList from './shoppingList'
+import ShoppingList from './shoppingList'
 
 function mainContainer (){
 return (
     <div className="MainContainer">
-        <h1>Main container</h1>
-        {/* <ShoppingList/> */}
+        
+        <h1>Your Shopping List:</h1>
+        <br/>
+        <br/>
+        <ShoppingList/>
 
     </div>
 )
