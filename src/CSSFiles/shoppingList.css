@@ -16,3 +16,8 @@
 .ShoppingTitle {
     text-align: center;
 }
+
+.buttonContain {
+    margin-left: 0px;
+    background-color: transparent;
+}
