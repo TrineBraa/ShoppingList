@@ -84,8 +84,12 @@ function ShoppingList () {
  
 
     return (
+        <>
+         <h1>Your Shopping List:</h1>
+        <br/>
+        <br/>
         <div className="ShoppingListComp">
-            <table className="table table-dark  shoppingTable">
+            <table className="table table-dark shoppingTable">
                 <thead>
                     <tr>
                         <th className="ShoppingTitle">Shopping Item</th>
@@ -115,6 +119,7 @@ function ShoppingList () {
                 </tbody>
             </table>
         </div>
+        </>
     );
 }
 
