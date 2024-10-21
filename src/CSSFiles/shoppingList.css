@@ -5,7 +5,7 @@
 }
 
 .shoppingTable {
-    width: 800px;
+    width: 500px;
     height: 30px;
 }
 
@@ -15,9 +15,15 @@
 
 .ShoppingTitle {
     text-align: center;
+    width: 500px;
 }
 
 .buttonContain {
     margin-left: 0px;
     background-color: transparent;
+}
+
+.ShoppingButn {
+    margin-left: 0px;
+    width: 10px;
 }

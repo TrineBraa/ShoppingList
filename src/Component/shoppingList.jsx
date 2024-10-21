@@ -30,7 +30,7 @@ function ShoppingList () {
                                         method: 'POST',
                                         headers: {'Content-Type': 'application/json',
                                         },
-                body: JSON.stringify({Shopping: newItem})
+                body: JSON.stringify({Shopping : newItem})
             });
             if(response.ok) {
                 const newItemFromDB = await response.json();
@@ -62,22 +62,48 @@ function ShoppingList () {
         }
     }
 
+    const editShoppingItem = async (id, newName) => {
+        try {
+            const response = await fetch (`https://localhost:7051/shoppingList?id=${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({Shopping: newName})
+            });
+
+            if (response.ok) {
+                setShopping((prevShopping) =>
+                    prevShopping.map (item => item.id === id ? { ...item, shopping: newName} : item)
+            );
+            } else {
+                console.error('Failed to update item in Database');
+            }
+        } catch (error){
+            console.error('Error updating item:', error);
+        }
+    };
+ 
+
     return (
         <div className="ShoppingListComp">
             <table className="table table-dark  shoppingTable">
                 <thead>
-                    <tr className="ShoppingRow">
+                    <tr>
                         <th className="ShoppingTitle">Shopping Item</th>
                     </tr>
                     
                 </thead>
                 <tbody key="ShoppingTable">
+                <tr className="ShoppingRow" key="AddshoppingButton">
+                            <td  colSpan="3">
+                                <AddButn onAdd={addShoppingItem}/>
+                            </td> 
+                        </tr>
                     {Array.isArray(shopping) && shopping.length > 0 ?
                         (shopping.map((item) => (
                             <tr className="ShoppingRow" key={item.id}>
                                 <td>{item.shopping || 'Unknown item'}</td>
-                                <td><EditButn/></td>
-                                <td><DeleteButn id={item.id} onDelete={deleteShoppingItem} key="deletebtn"/></td>
+                                <td className ="ShoppingButn"><EditButn id= {item.id} currentName={item.shopping} onEdit = {editShoppingItem}/></td>
+                                <td className ="ShoppingButn"><DeleteButn id={item.id} onDelete={deleteShoppingItem} key="deletebtn"/></td>
                             </tr>  
                         ))
                         ) : (
@@ -85,11 +111,7 @@ function ShoppingList () {
                             <td colSpan="3">No Items Found</td>
                         </tr>
                         )}
-                        <tr className="ShoppingRow">
-                            <td  colSpan="3">
-                                <AddButn onAdd={addShoppingItem}/>
-                            </td> 
-                        </tr>
+                       
                 </tbody>
             </table>
         </div>

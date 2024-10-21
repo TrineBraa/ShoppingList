@@ -17,7 +17,7 @@ return(
 }
 
 DeleteButn.propTypes = {
-    id: PropTypes.oneOfType([PropTypes.string]).isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     onDelete: PropTypes.func.isRequired,
 }
 
