@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import getData from '../API';
+import getData from '../../API';
 import '../CSSFiles/shoppingList.css'
 import 'bootstrap';
-import DeleteButn from './deleteButn';
-import EditButn from './editButn';
-import AddButn from './addButn';
+import DeleteButn from '../deleteButn';
+import EditButn from '../editButn';
+import AddButn from '../addButn';
+import '../CSSFiles/MainContain.css'
 
 
 function ShoppingList () {
@@ -20,31 +21,38 @@ function ShoppingList () {
     fetchShoppingData();
 }, []);
 
-   const refreshShoppingData = () => {
+
+const handleAddShoppingItem = (newItem) => {
+    setShopping((prevShopping) => [... prevShopping, newItem]);
+    refreshShopping();
+}
+ 
+const refreshShopping = () => {
     fetchShoppingData();
    }
 
-   const addShoppingItem = async (newItem) => {
-    try{
-            const response = await fetch('https://localhost:7051/shoppingList', {
-                                        method: 'POST',
-                                        headers: {'Content-Type': 'application/json',
-                                        },
-                body: JSON.stringify({Shopping : newItem})
-            });
-            if(response.ok) {
-                const newItemFromDB = await response.json();
-                setShopping((prevShopping) => [
-                    ...prevShopping,
-                    newItemFromDB,
-                ], );
-                refreshShoppingData();
-            } else {
-                console.error('Failed to add item to the Database');
-            }
-        } catch (error) {
-            console.error('Error adding item:', error);
-        }};
+
+//    const addShoppingItem = async (newItem) => {
+//     try{
+//             const response = await fetch('https://localhost:7051/shoppingList', {
+//                                         method: 'POST',
+//                                         headers: {'Content-Type': 'application/json',
+//                                         },
+//                 body: JSON.stringify({Shopping : newItem})
+//             });
+//             if(response.ok) {
+//                 const newItemFromDB = await response.json();
+//                 setShopping((prevShopping) => [
+//                     ...prevShopping,
+//                     newItemFromDB,
+//                 ], );
+//                 refreshShoppingData();
+//             } else {
+//                 console.error('Failed to add item to the Database');
+//             }
+//         } catch (error) {
+//             console.error('Error adding item:', error);
+//         }};
 
     const deleteShoppingItem = async (id) => {
         try{
@@ -84,7 +92,8 @@ function ShoppingList () {
  
 
     return (
-        <>
+
+        <div className="MainContainer">
          <h1>Your Shopping List:</h1>
         <br/>
         <br/>
@@ -93,13 +102,15 @@ function ShoppingList () {
                 <thead>
                     <tr>
                         <th className="ShoppingTitle">Shopping Item</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     
                 </thead>
                 <tbody key="ShoppingTable">
                 <tr className="ShoppingRow" key="AddshoppingButton">
                             <td  colSpan="3">
-                                <AddButn onAdd={addShoppingItem}/>
+                                <AddButn onAdd={handleAddShoppingItem} type="shoppingList"/>
                             </td> 
                         </tr>
                     {Array.isArray(shopping) && shopping.length > 0 ?
@@ -119,7 +130,8 @@ function ShoppingList () {
                 </tbody>
             </table>
         </div>
-        </>
+        </div>
+        
     );
 }
 

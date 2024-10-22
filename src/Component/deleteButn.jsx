@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../CSSFiles/shoppingList.css'
+import './CSSFiles/shoppingList.css'
 
 function DeleteButn({id, onDelete}) {
     const HandleDelete = async () => {
