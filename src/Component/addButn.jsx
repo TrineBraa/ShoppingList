@@ -1,20 +1,23 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import './CSSFiles/shoppingList.css'
-import refreshShopping from './Pages/shoppingList'
-import refreshTodo from './Pages/todoList'
 
 
 
-function AddButn( {onAdd, type} )  {
+
+function AddButn( {onAdd, type, refresh} )  {
     const [newItem, setNewItem] = useState (" ");
-
     const handleInputChange = (e) => {
         setNewItem(e.target.value);
     };
+    
+    // const Testing = (type === 'shoppingList' ? 'Shopping' : 'Text');
+    // console.log(Testing)
 
     const handleAddItem = async () => {
-        onAdd(!newItem.trim());
+        onAdd(newItem);
+
+        console.log(newItem);
 
         try {
             const response = await fetch (`https://localhost:7051/${type}`, 
@@ -22,7 +25,7 @@ function AddButn( {onAdd, type} )  {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ [type === 'shoppingList' ? 'Shopping' : 'todo'] : newItem}),
+                    body: JSON.stringify({ [type === 'shoppingList' ? 'Shopping' : 'Task'] : newItem}),
                 });
 
                     if (!response.ok) {
@@ -30,10 +33,10 @@ function AddButn( {onAdd, type} )  {
                     }
 
                     const newItemFromDB = await response.json();
+                    
                     onAdd(newItemFromDB);
                     setNewItem("");
-                    refreshShopping();
-                    refreshTodo();
+                    refresh();
                 } catch (error) {
                     console.error('Error adding item:', error)
                 }
@@ -69,6 +72,7 @@ function AddButn( {onAdd, type} )  {
 AddButn.propTypes = {
     onAdd: PropTypes.func.isRequired,
     type: PropTypes.oneOf(['shoppingList', 'Todo']).isRequired,
+    refresh: PropTypes.func.isRequired,
 }
 
 

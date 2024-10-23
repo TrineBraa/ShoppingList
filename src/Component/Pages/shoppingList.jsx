@@ -19,40 +19,40 @@ function ShoppingList () {
    
    useEffect (() => {
     fetchShoppingData();
-}, []);
+    }, []);
 
 
-const handleAddShoppingItem = (newItem) => {
+    const handleAddShoppingItem = (newItem) => {
     setShopping((prevShopping) => [... prevShopping, newItem]);
     refreshShopping();
-}
+    }
  
-const refreshShopping = () => {
+    const refreshShopping = () => {
     fetchShoppingData();
    }
 
 
-//    const addShoppingItem = async (newItem) => {
-//     try{
-//             const response = await fetch('https://localhost:7051/shoppingList', {
-//                                         method: 'POST',
-//                                         headers: {'Content-Type': 'application/json',
-//                                         },
-//                 body: JSON.stringify({Shopping : newItem})
-//             });
-//             if(response.ok) {
-//                 const newItemFromDB = await response.json();
-//                 setShopping((prevShopping) => [
-//                     ...prevShopping,
-//                     newItemFromDB,
-//                 ], );
-//                 refreshShoppingData();
-//             } else {
-//                 console.error('Failed to add item to the Database');
-//             }
-//         } catch (error) {
-//             console.error('Error adding item:', error);
-//         }};
+    //    const addShoppingItem = async (newItem) => {
+    //     try{
+    //             const response = await fetch('https://localhost:7051/shoppingList', {
+    //                                         method: 'POST',
+    //                                         headers: {'Content-Type': 'application/json',
+    //                                         },
+    //                 body: JSON.stringify({Shopping : newItem})
+    //             });
+    //             if(response.ok) {
+    //                 const newItemFromDB = await response.json();
+    //                 setShopping((prevShopping) => [
+    //                     ...prevShopping,
+    //                     newItemFromDB,
+    //                 ], );
+    //                 refreshShoppingData();
+    //             } else {
+    //                 console.error('Failed to add item to the Database');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error adding item:', error);
+    //         }};
 
     const deleteShoppingItem = async (id) => {
         try{
@@ -94,14 +94,14 @@ const refreshShopping = () => {
     return (
 
         <div className="MainContainer">
-         <h1>Your Shopping List:</h1>
+         <h1>Shopping List:</h1>
         <br/>
         <br/>
         <div className="ShoppingListComp">
             <table className="table table-dark shoppingTable">
                 <thead>
                     <tr>
-                        <th className="ShoppingTitle">Shopping Item</th>
+                        <th className="ShoppingTitle">Shopping Items</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -110,7 +110,7 @@ const refreshShopping = () => {
                 <tbody key="ShoppingTable">
                 <tr className="ShoppingRow" key="AddshoppingButton">
                             <td  colSpan="3">
-                                <AddButn onAdd={handleAddShoppingItem} type="shoppingList"/>
+                                <AddButn onAdd={handleAddShoppingItem} type="shoppingList" refresh={refreshShopping}/>
                             </td> 
                         </tr>
                     {Array.isArray(shopping) && shopping.length > 0 ?
